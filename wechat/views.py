@@ -1,9 +1,10 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-
+from django.views.decorators.csrf import csrf_exempt
 
 import hashlib, os
 
+@csrf_exempt
 def token_handle(request):
     get_value = lambda dict, key, default: dict[key] if key in dict else default
     if request.method == 'GET':
