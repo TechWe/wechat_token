@@ -31,6 +31,7 @@ def token_handle(request):
     
     if request.method == 'POST':
         dict = request.POST
+        print(dict)
         for key in dict:
             print(f"handle/POST key:{key} value:{dict[key]}")
         return HttpResponse('success')
