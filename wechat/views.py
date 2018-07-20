@@ -17,7 +17,7 @@ def token_handle(request):
         list = [token, timestamp, nonce]
         list.sort()
         str = ''.join(list)
-        sha1 = hashlib.sha1(str)
+        sha1 = hashlib.sha1(str.encode())
         
         hashcode = sha1.hexdigest()
         print(f"handle/GET func: \n hashcode:{hashcode} \n signature:{signature}")
