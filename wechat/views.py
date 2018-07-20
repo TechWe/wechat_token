@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 
-import hashlib
+import hashlib, os
 
 def token_handle(request):
     get_value = lambda dict, key, default: dict[key] if key in dict else default
@@ -12,14 +12,15 @@ def token_handle(request):
         timestamp = get_value(dict, 'timestamp', '')
         nonce = get_value(dict, 'nonce', '')
         echostr = get_value(dict, 'echostr', '')
-        token = ''
+        token = os.getenv('WX_TOKEN', '508EE8A6BEED4DB78068960627D763A3')
 
         list = [token, timestamp, nonce]
         list.sort()
-        sha1 = hashlib.sha1()
-        map(sha1.update, list)
+        str = ''.join(list)
+        sha1 = hashlib.sha1(str)
+        
         hashcode = sha1.hexdigest()
-        print("handle/GET func: hashcode, signature: ", hashcode, signature)
+        print(f"handle/GET func: \n hashcode:{hashcode} \n signature:{signature}")
         
         if hashcode == signature:
             content = echostr
