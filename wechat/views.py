@@ -26,5 +26,9 @@ def token_handle(request):
         if hashcode == signature:
             content = echostr
         else:
-            content = "Invalid"
+            content = "invalid"
         return HttpResponse(content)
+    
+    if request.method == 'POST':
+        return HttpResponse('success')
+        
